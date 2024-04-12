@@ -8,3 +8,9 @@ export type Register = {
     nickname: string,
     isAdmin: boolean
 }
+export interface TODO{
+    id: string,
+    name: string
+    state: boolean,
+    user: Register 
+}

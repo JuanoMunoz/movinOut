@@ -12,9 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authorization = exports.validateToken = void 0;
+exports.authorization = exports.TODOauthorization = exports.validateToken = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const User_1 = __importDefault(require("../model/User"));
+const Todo_1 = __importDefault(require("../model/Todo"));
 const validateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { authorization } = req.headers;
     if (typeof authorization == 'string') {
@@ -41,6 +42,28 @@ const validateToken = (req, res, next) => __awaiter(void 0, void 0, void 0, func
     }
 });
 exports.validateToken = validateToken;
+const TODOauthorization = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { authorization } = req.headers;
+        const token = authorization === null || authorization === void 0 ? void 0 : authorization.split(' ')[1];
+        const { email } = jsonwebtoken_1.default.decode(token);
+        const user = yield User_1.default.find({ email: email });
+        const todo = yield Todo_1.default.findOne({ id: req.params.id }).populate('user');
+        const idFromUserFromTodo = todo === null || todo === void 0 ? void 0 : todo.user.id;
+        if ((req.method == 'PUT' || req.method == 'DELETE') && idFromUserFromTodo == user[0].id) {
+            next();
+            return;
+        }
+        throw new Error('YOU DONT HAVE AUTHORIZATION TO DO THIS - YOU CANNOT MESS WITH OTHERS INFORMATION');
+    }
+    catch (e) {
+        res.status(403).json({
+            status: 403,
+            error: e === null || e === void 0 ? void 0 : e.message
+        });
+    }
+});
+exports.TODOauthorization = TODOauthorization;
 const authorization = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { authorization } = req.headers;
@@ -48,6 +71,10 @@ const authorization = (req, res, next) => __awaiter(void 0, void 0, void 0, func
         const { email } = jsonwebtoken_1.default.decode(token);
         const user = yield User_1.default.find({ email: email });
         if (user[0].isAdmin) {
+            next();
+            return;
+        }
+        if ((req.method == 'PUT' || req.method == 'DELETE') && req.params.id == user[0].id) {
             next();
             return;
         }

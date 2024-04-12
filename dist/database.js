@@ -4,6 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-mongoose_1.default.connect(`mongodb+srv://juanMunoz:Amoelanime1@apirest.glytkh2.mongodb.net/movinout?retryWrites=true&w=majority&appName=ApiRest`).then(() => {
+mongoose_1.default.connect(process.env.MONGO_URI).then(() => {
     console.log('conectado a atlas');
 }).catch(e => console.error(e));

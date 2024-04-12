@@ -1,5 +1,6 @@
 import express, { Express } from 'express';
 import userRouter from './routes/user.routes';
+import todoRouter from './routes/todo.routes';
 import morgan from 'morgan'
 import cors from 'cors'
 import './database'
@@ -8,6 +9,7 @@ const PORT: number = 3000;
 app.use(morgan('dev'))
 app.use(express.json())
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/todos', todoRouter)
 app.get('/', (req, res) => {
     res.redirect('/api/v1/')
 })
