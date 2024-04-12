@@ -7,12 +7,12 @@ AN API REST FOR A TODO APP APLICATION NAMED MOVIN OUT
 ### ROUTES
 
 1. USER ROUTES
-    - api/v1/users/login/
-    - api/v1/users/register/
-    - api/v1/users/:id [GET,PUT, DELETE]
+    - https://movinout-5eqc.onrender.com/api/v1/users/login/
+    - https://movinout-5eqc.onrender.com/api/v1/users/register/
+    - https://movinout-5eqc.onrender.com/api/v1/users/:id [GET,PUT, DELETE]
 1. TODOS ROUTES
-    - api/v1/todos/ [GET,POST]
-    - api/v1/todos/:id [DELETE,PUT]
+    - https://movinout-5eqc.onrender.com/api/v1/todos/ [GET,POST]
+    - https://movinout-5eqc.onrender.com/api/v1/todos/:id [DELETE,PUT]
 
 ### JWT AUTHORIZATION AND AUTHENTICATION
 
