@@ -32,7 +32,6 @@ export default class TodoController{
                 items: {msg: e?.message}
             })
         }
-
 }
     static async updateTodo(req: Request, res: Response) {
         try {

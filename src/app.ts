@@ -6,6 +6,7 @@ import cors from 'cors'
 import './database'
 const app: Express = express()
 const PORT: number = 3000;
+app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
 app.use('/api/v1/users', userRouter)
@@ -13,7 +14,6 @@ app.use('/api/v1/todos', todoRouter)
 app.get('/', (req, res) => {
     res.redirect('/api/v1/')
 })
-app.use(cors())
 app.listen(PORT, () => {
     console.log('Listening on port 3000');
 })
