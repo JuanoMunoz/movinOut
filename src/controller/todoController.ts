@@ -29,7 +29,7 @@ export default class TodoController{
         } catch (e: any) {
             res.status(400).json({
                 status: 400,
-                error: e?.message
+                items: {msg: e?.message}
             })
         }
 
@@ -50,7 +50,7 @@ export default class TodoController{
         } catch (e: any) {
             res.status(400).json({
                 status: 400,
-                error: e?.message
+                items: {msg: e?.message}
             })
         }
 
@@ -69,7 +69,8 @@ export default class TodoController{
         } catch (e: any) {
             res.status(400).json({
                 status: 400,
-                error: e?.message
+                items: {
+                    msg: e?.message}
             })
         }
 
@@ -93,7 +94,7 @@ export default class TodoController{
         } catch (e: any) {
             res.status(400).json({
                 status: 400,
-                error: e?.message
+                items: {msg: e?.message}
             })
         }
     }

@@ -20,7 +20,7 @@ export default class UserController{
         } catch (e: any) {
             res.status(500).send({
                 status: 500,
-                error: e?.message
+                items: {msg: e?.message}
             })
         }
     }
@@ -39,7 +39,7 @@ export default class UserController{
         } catch (e: any) {
             res.status(500).send({
                 status: 500,
-                error: e?.message
+                items: {msg: e?.message}
             })
         }
     }
@@ -55,7 +55,7 @@ export default class UserController{
         } catch (e: any) {
             res.status(500).send({
                 status: 500,
-                error: e?.message
+                items: {msg: e?.message}
             })
         }
     }
@@ -82,7 +82,7 @@ export default class UserController{
         } catch(e: any) {
             res.status(500).send({
                 status: 500,
-                error: e.message
+                items: { error: e?.message }
             })
         }
     }
@@ -119,7 +119,7 @@ export default class UserController{
         } catch (e: any) {
             res.status(500).send({
                 status: 500,
-                error: e?.message
+                items: {msg: e?.message}
             })
         }
     }
@@ -149,7 +149,7 @@ export default class UserController{
         } catch (e: any) {
             res.status(500).send({
                 status: 400,
-                error: e?.message
+                items: {msg: e?.message}
             })
         }
     }

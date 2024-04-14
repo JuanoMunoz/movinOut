@@ -17,13 +17,13 @@ export const validateToken = async(req: Request, res: Response, next: NextFuncti
         } catch (e: any) {
             res.status(403).json({
                 status: 500,
-                error: e?.message
+                items: {msg: e?.message}
             })
         }
     } else {
         res.status(403).json({
             status: 500,
-            error: 'YOU DONT HAVE PERMISSIONS TO SEE THIS'
+            items: { msg: 'YOU DONT HAVE PERMISSIONS TO SEE THIS' }
         })
     }
 }
@@ -44,7 +44,7 @@ export const TODOauthorization = async (req: Request, res: Response,next: NextFu
     } catch (e: any) {
         res.status(403).json({
                 status: 403,
-                error: e?.message
+                items: {msg: e?.message}
             })
     }
 }
@@ -71,7 +71,7 @@ export const authorization = async (req: Request, res: Response,next: NextFuncti
     } catch (e: any) {
         res.status(403).json({
                 status: 403,
-                error: e?.message
+                items: {msg: e?.message}
             })
     }
 }
