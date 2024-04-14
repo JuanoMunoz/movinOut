@@ -6,9 +6,7 @@ import cors, { CorsOptions } from 'cors'
 import './database'
 const app: Express = express()
 const PORT: number = 3000;
-app.use(cors({
-    origin : ['http:localhost:5173','https://movin-out.vercel.app']
-}))
+app.use(cors())
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -25,3 +23,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log('Listening on port 3000');
 })
+export default app
