@@ -22,8 +22,8 @@ export default class TodoController{
             res.status(200).json({
                 status: 200,
                 items: {
+                    msg: 'Get your Todos',
                     todos: todos
-                    
                 }
             })
         } catch (e: any) {
@@ -87,6 +87,7 @@ export default class TodoController{
                 res.status(201).json({
                     status: 201,
                     items: {
+                        msg: 'Task created succesfully',
                         todos: todos
                     }
                 })

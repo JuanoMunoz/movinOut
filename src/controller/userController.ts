@@ -14,7 +14,10 @@ export default class UserController{
             const users = await User.find();
             res.status(200).json({
                 status: 200,
-                items: users
+                items: {
+                    msg: 'Here is the list of users',
+                    users
+                }
             })
 
         } catch (e: any) {
@@ -49,7 +52,10 @@ export default class UserController{
             const user = await User.find({id: id});
             res.status(200).json({
                 status: 200,
-                items: user
+                items: {
+                    msg: 'Here is the user',
+                    user
+                }
             })
 
         } catch (e: any) {
@@ -74,6 +80,7 @@ export default class UserController{
             res.status(200).json({
                 status: 200,
                 items: {
+                    msg: 'Welcome to Movin Out',
                     token,
                     user: userTryingToAccess
                 }
@@ -108,7 +115,7 @@ export default class UserController{
                 isAdmin: checkIfUserAdmin.length == 0 ? false : true
             });
             await newUser.save();
-            res.status(200).json({
+            res.status(201).json({
                 status: 201,
                 items: {
                     msg: 'user created succesfully',
@@ -138,7 +145,7 @@ export default class UserController{
                 await updatedUser.save()
             }
             
-            res.status(200).json({
+            res.status(201).json({
                 status: 201,
                 items: {
                     msg: 'user updated succesfully',
@@ -148,7 +155,7 @@ export default class UserController{
 
         } catch (e: any) {
             res.status(500).send({
-                status: 400,
+                status: 500,
                 items: {msg: e?.message}
             })
         }

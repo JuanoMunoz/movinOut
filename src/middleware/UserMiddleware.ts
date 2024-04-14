@@ -16,13 +16,13 @@ export const validateToken = async(req: Request, res: Response, next: NextFuncti
             next()
         } catch (e: any) {
             res.status(403).json({
-                status: 500,
+                status: 403,
                 items: {msg: e?.message}
             })
         }
     } else {
         res.status(403).json({
-            status: 500,
+            status: 403,
             items: { msg: 'YOU DONT HAVE PERMISSIONS TO SEE THIS' }
         })
     }
