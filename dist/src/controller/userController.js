@@ -32,7 +32,7 @@ class UserController {
                 });
             }
             catch (e) {
-                res.status(500).send({
+                res.status(500).json({
                     status: 500,
                     items: { msg: e === null || e === void 0 ? void 0 : e.message }
                 });
@@ -53,7 +53,8 @@ class UserController {
                 });
             }
             catch (e) {
-                res.status(500).send({
+                res.status(500).
+                    json({
                     status: 500,
                     items: { msg: e === null || e === void 0 ? void 0 : e.message }
                 });
@@ -74,7 +75,7 @@ class UserController {
                 });
             }
             catch (e) {
-                res.status(500).send({
+                res.status(500).json({
                     status: 500,
                     items: { msg: e === null || e === void 0 ? void 0 : e.message }
                 });
@@ -85,30 +86,31 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { email, password } = req.body;
-                if (email == undefined)
-                    throw new Error('Data missing: Correo');
-                if (password == undefined)
-                    throw new Error('Data missing: Password');
-                const userTryingToAccess = yield User_1.default.find({ email: email });
-                const compare = yield bcrypt_1.default.compare(password, userTryingToAccess[0].password);
-                if (!compare)
-                    throw new Error('Password incorrects');
-                const { nickname, id } = userTryingToAccess[0];
-                //jwt
-                const token = jsonwebtoken_1.default.sign({ email, id, nickname }, process.env.SECRET_KEY, { expiresIn: '1d' });
-                res.status(200).json({
-                    status: 200,
-                    items: {
-                        msg: 'Welcome to Movin Out',
-                        token,
-                        user: userTryingToAccess
-                    }
-                });
+                const userTryingToAccess = yield User_1.default.findOne({ email: email });
+                if (userTryingToAccess == null) {
+                    throw new Error('the user does not exist');
+                }
+                else {
+                    const compare = yield bcrypt_1.default.compare(password, userTryingToAccess.password);
+                    if (!compare)
+                        throw new Error('Password incorrect');
+                    const { nickname, id } = userTryingToAccess;
+                    //jwt
+                    const token = jsonwebtoken_1.default.sign({ email, id, nickname }, process.env.SECRET_KEY, { expiresIn: '1d' });
+                    res.status(200).json({
+                        status: 200,
+                        items: {
+                            msg: 'Welcome to Movin Out',
+                            token,
+                            user: userTryingToAccess
+                        }
+                    });
+                }
             }
             catch (e) {
-                res.status(500).send({
+                res.status(500).json({
                     status: 500,
-                    items: { error: e === null || e === void 0 ? void 0 : e.message }
+                    items: { msg: e === null || e === void 0 ? void 0 : e.message }
                 });
             }
         });
@@ -149,7 +151,7 @@ class UserController {
                 });
             }
             catch (e) {
-                res.status(500).send({
+                res.status(500).json({
                     status: 500,
                     items: { msg: e === null || e === void 0 ? void 0 : e.message }
                 });
@@ -182,7 +184,7 @@ class UserController {
                 });
             }
             catch (e) {
-                res.status(500).send({
+                res.status(500).json({
                     status: 500,
                     items: { msg: e === null || e === void 0 ? void 0 : e.message }
                 });

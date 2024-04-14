@@ -68,25 +68,26 @@ export default class UserController{
     }
     static async login(req: Request, res: Response):Promise<void>{
         try {
-            const { email, password } = req.body
-            if (email == undefined) throw new Error('Data missing: Correo')
-            if (password == undefined) throw new Error('Data missing: Password')
-            
-            const userTryingToAccess : Register[] = await User.find({ email: email })
-            const compare =await bcrypt.compare(password,userTryingToAccess[0].password)
-            if (!compare) throw new Error('Password incorrects')
-            const { nickname, id }= userTryingToAccess[0]
-            //jwt
-            const token = jwt.sign({email,id,nickname },process.env.SECRET_KEY as string,{expiresIn:'1d'} )
-            res.status(200).json({
-                status: 200,
-                items: {
-                    msg: 'Welcome to Movin Out',
-                    token,
-                    user: userTryingToAccess
-                }
-            })
+            const { email, password } = req.body            
+            const userTryingToAccess: Register | null = await User.findOne({ email: email })
 
+            if (userTryingToAccess == null) {
+                throw new Error('the user does not exist')
+            } else {
+                const compare = await bcrypt.compare(password, userTryingToAccess.password)
+                if (!compare) throw new Error('Password incorrect')
+                const { nickname, id } = userTryingToAccess
+                //jwt
+                const token = jwt.sign({ email, id, nickname }, process.env.SECRET_KEY as string, { expiresIn: '1d' })
+                res.status(200).json({
+                    status: 200,
+                    items: {
+                        msg: 'Welcome to Movin Out',
+                        token,
+                        user: userTryingToAccess
+                    }
+                })
+            }
         } catch(e: any) {
             res.status(500).json({
                 status: 500,

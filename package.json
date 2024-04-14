@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"npx tsc -w \" \"nodemon dist/app.js\" ",
-    "production": "node dist/app.js",
+    "dev": "concurrently \"npx tsc -w \" \"nodemon dist/src/app.js\" ",
+    "production": "node dist/src/app.js",
     "vercel-build": "echo hello"
   },
   "keywords": [],
